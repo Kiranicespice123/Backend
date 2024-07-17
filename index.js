@@ -22,6 +22,6 @@ mongoose.connect(CONNECTION_STRING).then(()=>console.log("mongo connected")).cat
 app.post("/register",userControl.createUser)
 app.post("/login",userControl.login)
 
-app.listen(3001,()=>{
+app.listen(3002,()=>{
     console.log("running");
 })  
