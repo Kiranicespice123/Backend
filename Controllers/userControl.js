@@ -41,6 +41,6 @@ exports.login = async (req, res) => {
         res?.status(200).json({ code: 200 ,token, data: { id: user._id, email: user.email, username: user.username } });
     } catch (error) {
         console.log(error);
-        res?.status(500).json({ message: "Something went wrong!" });
+        res?.status(500).json({ code:"500",message: "Something went wrong!" });
     }
 };
