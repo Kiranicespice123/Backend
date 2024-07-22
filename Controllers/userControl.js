@@ -20,19 +20,19 @@ exports.createUser = async (req,res)=>{
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-console.log({email})
+
         // Check if the user exists
         const user = await userModel.findOne({ email });
         if (!user) {
             console.log("not found");
-            return res?.status(404).json({ message: "User not found" });
+            return res?.status(404).json({code:404, message: "User not found" });
         }
 
         // Compare the password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             console.log("not matched");
-            return res?.status(400).json({ message: "Invalid credentials" });
+            return res?.status(400).json({code: 400, message: "Invalid credentials" });
         }
         
         // Generate a token
