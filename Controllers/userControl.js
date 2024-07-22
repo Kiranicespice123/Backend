@@ -8,7 +8,7 @@ exports.createUser = async (req,res)=>{
     try{
         let data=req.body
         const createdUser = await userModel.create(data);
-        res.status(201).json({code:201,message:"User creted",data:createdUser});
+        res.status(201).json({code:201,message:"User Created Successfully",data:createdUser});
         console.log(data)
     }
     catch(error){
