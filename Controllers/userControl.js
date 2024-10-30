@@ -8,12 +8,12 @@ exports.createUser = async (req,res)=>{
     try{
         let data=req.body
         const createdUser = await userModel.create(data);
-        res.status(201).json({code:201,message:"User Created Successfully",data:createdUser});
+        res.status(201).json({createdUser});
         console.log(data)
     }
     catch(error){
         console.log(error);
-        res.status(500).json({code:500,message:"Something went wrong!"});
+        res.status(500).json({message:"Something went wrong!"});
     };
 }
 
@@ -25,22 +25,23 @@ exports.login = async (req, res) => {
         const user = await userModel.findOne({ email });
         if (!user) {
             console.log("not found");
-            return res?.status(404).json({code:404, message: "User not found" });
+            return res.status(404).json({ message: "User not found" });
+          
         }
 
         // Compare the password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             console.log("not matched");
-            return res?.status(400).json({code: 400, message: "Invalid credentials" });
+            return res.status(400).json({ message: "Invalid credentials" });
         }
         
         // Generate a token
         const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
         console.log("",token);
-        res?.status(200).json({ code: 200 ,token, data: { id: user._id, email: user.email, username: user.username } });
+        res.status(200).json({ token, user: { id: user._id, email: user.email, username: user.username } });
     } catch (error) {
         console.log(error);
-        res?.status(500).json({ code:"500",message: "Something went wrong!" });
+        res.status(500).json({ message: "Something went wrong!" });
     }
 };
