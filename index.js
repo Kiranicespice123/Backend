@@ -29,6 +29,6 @@ app.post("/login",userControl.login)
 app.get("/get_widget",JournalControl.getWidget)
 app.get("/get_Backgrounds",JournalControl.getBackgroundsStore)
 
-app.listen(3002,()=>{
+app.listen(3006,()=>{
     console.log("running");
 })  
